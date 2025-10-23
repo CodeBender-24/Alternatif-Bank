@@ -103,46 +103,6 @@
           <input type="checkbox" name="autopay" value="1"> {{ texts['autopay'] }}
         </label>
         <button class="primary-button" type="submit">Ödeme yap</button>
-    <h1 class="section-title">Merhaba, {{ user['full_name'] }} 👋</h1>
-    <p class="section-subtitle">Alternatif Bank hesabınızın özetini aşağıda bulabilirsiniz.</p>
-    <div class="balance-display">
-      <span>Toplam Bakiyeniz</span>
-      <strong>{{ '₺{:,.2f}'.format(user['balance']).replace(',', 'X').replace('.', ',').replace('X', '.') }}</strong>
-    </div>
-  </div>
-
-  <div class="grid-two-columns">
-    <div class="card">
-      <h2 class="card-title">Bakiye Yükle</h2>
-      <form method="post" action="{{ url_for('deposit') }}" class="form-grid">
-        <label for="deposit-amount">Tutar (₺)</label>
-        <input type="number" step="0.01" min="0" id="deposit-amount" name="amount" placeholder="1000" required>
-
-        <label for="deposit-note">Açıklama</label>
-        <input type="text" id="deposit-note" name="note" placeholder="Opsiyonel açıklama">
-
-        <button type="submit" class="primary-button">Bakiye Ekle</button>
-      </form>
-    </div>
-
-    <div class="card">
-      <h2 class="card-title">Para Transferi</h2>
-      <form method="post" action="{{ url_for('transfer') }}" class="form-grid">
-        <label for="transfer-email">Alıcı E-postası</label>
-        <input list="user-list" type="email" id="transfer-email" name="receiver_email" placeholder="alici@alternatifbank.com" required>
-        <datalist id="user-list">
-          {% for peer in users %}
-            <option value="{{ peer['email'] }}">{{ peer['full_name'] }}</option>
-          {% endfor %}
-        </datalist>
-
-        <label for="transfer-amount">Tutar (₺)</label>
-        <input type="number" step="0.01" min="0" id="transfer-amount" name="amount" placeholder="500" required>
-
-        <label for="transfer-note">Açıklama</label>
-        <input type="text" id="transfer-note" name="note" placeholder="Opsiyonel açıklama">
-
-        <button type="submit" class="primary-button">Transferi Gönder</button>
       </form>
     </div>
   </div>
@@ -276,40 +236,4 @@
     });
   }
 </script>
-    <h2 class="card-title">Son İşlemler</h2>
-    {% if transactions %}
-      <ul class="transaction-list">
-        {% for trx in transactions %}
-          <li class="transaction-item">
-            <div>
-              <span class="transaction-type {{ trx['type'] }}">{{ trx['type'] == 'deposit' and 'Bakiye Yükleme' or 'Transfer' }}</span>
-              {% if trx['type'] == 'transfer' %}
-                <p class="transaction-detail">
-                  {% if trx['sender_id'] == user['id'] %}
-                    <strong>{{ trx['receiver_name'] }}</strong> kişisine gönderildi
-                  {% else %}
-                    <strong>{{ trx['sender_name'] }}</strong> kişisinden alındı
-                  {% endif %}
-                </p>
-              {% else %}
-                <p class="transaction-detail">{{ trx['note'] }}</p>
-              {% endif %}
-              {% if trx['note'] and trx['type'] == 'transfer' %}
-                <p class="transaction-note">"{{ trx['note'] }}"</p>
-              {% endif %}
-            </div>
-            <div class="transaction-meta">
-              <span class="transaction-amount {{ 'negative' if trx['sender_id'] == user['id'] else 'positive' }}">
-                {% if trx['sender_id'] == user['id'] %}-{% else %}+{% endif %}₺{{ '{:,.2f}'.format(trx['amount']).replace(',', 'X').replace('.', ',').replace('X', '.') }}
-              </span>
-              <span class="transaction-date">{{ trx['created_at'] }}</span>
-            </div>
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p class="empty-state">Henüz işlem geçmişiniz yok. Hemen bir transfer başlatın!</p>
-    {% endif %}
-  </div>
-</section>
 {% endblock %}

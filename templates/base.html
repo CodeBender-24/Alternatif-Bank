@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="tr" data-theme="{{ (user and user.theme) if user is defined else 'light' }}">
-<html lang="tr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,8 +11,6 @@
     </script>
   </head>
   <body class="{{ 'theme-dark' if (user is defined and user.theme == 'dark') else 'theme-light' }}">
-  </head>
-  <body>
     <header class="site-header">
       <div class="container">
         <div class="brand">
@@ -26,7 +23,6 @@
         {% if session.get('user_id') %}
           <nav class="nav-links">
             <a href="{{ url_for('dashboard') }}">Ana Sayfa</a>
-            <a href="{{ url_for('dashboard') }}">Panel</a>
             <a href="{{ url_for('logout') }}" class="logout">Çıkış</a>
           </nav>
         {% endif %}

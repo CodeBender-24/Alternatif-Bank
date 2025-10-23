@@ -1,31 +1,21 @@
 :root {
-  --brand-primary: #a50034;
-  --brand-secondary: #e6d5dc;
-  --brand-dark: #2f1e28;
+  --brand-primary: #930036;
+  --brand-secondary: #f3d1dc;
+  --brand-dark: #2c0013;
   --brand-light: #ffffff;
-  --brand-muted: #f7f3f4;
-  --text-primary: #1f1b24;
-  --text-secondary: #4a4a4a;
+  --brand-muted: #f8eef2;
+  --text-primary: #1f0d15;
+  --text-secondary: #5c2f3b;
   --success: #2e8b57;
   --warning: #ffb347;
   --danger: #d9534f;
 }
 
 [data-theme='dark'] {
-  --brand-light: #1e1a21;
-  --brand-muted: #2a232d;
-  --text-primary: #f5f1f3;
-  --text-secondary: #cfc6cc;
-  --ab-primary: #e10613;
-  --ab-primary-dark: #b3000d;
-  --ab-secondary: #1b1b1b;
-  --ab-background: #f6f7fb;
-  --ab-surface: #ffffff;
-  --ab-muted: #6f7175;
-  --ab-success: #1f9d55;
-  --ab-warning: #f59e0b;
-  --ab-danger: #dc2626;
-  font-family: 'Montserrat', sans-serif;
+  --brand-light: #1d0a11;
+  --brand-muted: #2a0f19;
+  --text-primary: #f7e9ee;
+  --text-secondary: #d9aebd;
 }
 
 * {
@@ -43,7 +33,7 @@ body {
 }
 
 .theme-dark {
-  background: #19141d;
+  background: #16060c;
 }
 
 .container {
@@ -61,28 +51,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: var(--ab-background);
-  color: var(--ab-secondary);
-  font-family: 'Montserrat', sans-serif;
-  line-height: 1.6;
-}
-
-.container {
-  width: min(960px, 100%);
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.site-header {
-  background: var(--ab-secondary);
-  color: #fff;
-  padding: 1.5rem 0;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 }
 
 .brand {
@@ -99,12 +67,6 @@ body {
   color: #fff;
   display: grid;
   place-items: center;
-  background: var(--ab-primary);
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-weight: 700;
   font-size: 1.4rem;
 }
@@ -120,23 +82,6 @@ body {
 }
 
 .nav-links {
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  font-weight: 600;
-}
-
-.brand-name {
-  font-size: 1.25rem;
-}
-
-.brand-tagline {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.nav-links {
-  margin-left: auto;
   display: flex;
   gap: 1rem;
   align-items: center;
@@ -197,7 +142,7 @@ body {
   padding: 2.5rem;
   max-width: 420px;
   margin: 0 auto;
-  box-shadow: 0 20px 40px rgba(165, 0, 52, 0.08);
+  box-shadow: 0 20px 40px rgba(147, 0, 54, 0.08);
   display: grid;
   gap: 1.5rem;
   text-align: center;
@@ -275,7 +220,7 @@ textarea {
 .primary-button {
   background: var(--brand-primary);
   color: #fff;
-  box-shadow: 0 12px 20px rgba(165, 0, 52, 0.2);
+  box-shadow: 0 12px 20px rgba(147, 0, 54, 0.2);
 }
 
 .primary-button.ghost {
@@ -300,135 +245,6 @@ textarea {
 .secondary-button:hover,
 .ghost-button:hover {
   transform: translateY(-1px);
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: opacity 0.2s ease;
-}
-
-.nav-links a:hover {
-  opacity: 0.75;
-}
-
-.nav-links .logout {
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.main-content {
-  padding: 3rem 0;
-}
-
-.section-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--ab-secondary);
-  margin-bottom: 0.5rem;
-}
-
-.section-subtitle {
-  color: var(--ab-muted);
-  margin-bottom: 2rem;
-}
-
-.auth-card {
-  background: var(--ab-surface);
-  border-radius: 18px;
-  padding: 2.5rem;
-  box-shadow: 0 20px 45px rgba(17, 24, 39, 0.1);
-  max-width: 520px;
-  margin: 0 auto;
-}
-
-.form-grid {
-  display: grid;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-}
-
-label {
-  font-weight: 600;
-  color: var(--ab-secondary);
-}
-
-input[type="email"],
-input[type="password"],
-input[type="text"],
-input[type="number"] {
-  padding: 0.85rem 1rem;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  font-size: 1rem;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
-}
-
-input:focus {
-  outline: none;
-  border-color: var(--ab-primary);
-  box-shadow: 0 0 0 3px rgba(225, 6, 19, 0.15);
-}
-
-.primary-button {
-  background: var(--ab-primary);
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 0.9rem 1.2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
-}
-
-.primary-button:hover {
-  background: var(--ab-primary-dark);
-  transform: translateY(-1px);
-}
-
-.form-footer {
-  text-align: center;
-  color: var(--ab-muted);
-}
-
-.form-footer a {
-  color: var(--ab-primary);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.flash-messages {
-  display: grid;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-}
-
-.flash {
-  padding: 0.85rem 1rem;
-  border-radius: 12px;
-  font-weight: 600;
-}
-
-.flash.success {
-  background: rgba(31, 157, 85, 0.1);
-  color: var(--ab-success);
-}
-
-.flash.info {
-  background: rgba(59, 130, 246, 0.1);
-  color: #2563eb;
-}
-
-.flash.warning {
-  background: rgba(245, 158, 11, 0.1);
-  color: var(--ab-warning);
-}
-
-.flash.danger {
-  background: rgba(220, 38, 38, 0.1);
-  color: var(--ab-danger);
 }
 
 .dashboard {
@@ -437,7 +253,7 @@ input:focus {
 }
 
 .overview-card {
-  background: linear-gradient(135deg, var(--brand-primary), #560018);
+  background: linear-gradient(135deg, var(--brand-primary), #4a001c);
   color: #fff;
   border-radius: 1.8rem;
   padding: 2.5rem;
@@ -481,32 +297,6 @@ input:focus {
 }
 
 .accounts-grid {
-  background: linear-gradient(135deg, var(--ab-primary), var(--ab-primary-dark));
-  color: #fff;
-  border-radius: 20px;
-  padding: 2.5rem;
-  box-shadow: 0 20px 45px rgba(225, 6, 19, 0.25);
-}
-
-.balance-display {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  margin-top: 1.5rem;
-}
-
-.balance-display span {
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.8rem;
-  opacity: 0.75;
-}
-
-.balance-display strong {
-  font-size: 2.4rem;
-}
-
-.grid-two-columns {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
@@ -516,7 +306,7 @@ input:focus {
   background: var(--brand-light);
   border-radius: 1.5rem;
   padding: 1.75rem;
-  box-shadow: 0 20px 40px rgba(18, 4, 11, 0.06);
+  box-shadow: 0 20px 40px rgba(147, 0, 54, 0.06);
   display: grid;
   gap: 1.25rem;
 }
@@ -569,20 +359,6 @@ input:focus {
   list-style: none;
   padding: 0;
   margin: 0;
-  background: var(--ab-surface);
-  border-radius: 18px;
-  padding: 2rem;
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
-}
-
-.card-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 1.25rem;
-}
-
-.transaction-list {
-  list-style: none;
   display: grid;
   gap: 1rem;
 }
@@ -599,7 +375,7 @@ input:focus {
   font-size: 0.75rem;
   padding: 0.3rem 0.6rem;
   border-radius: 999px;
-  background: rgba(165, 0, 52, 0.08);
+  background: rgba(147, 0, 54, 0.1);
   width: fit-content;
 }
 
@@ -615,7 +391,7 @@ input:focus {
 }
 
 .card-tile {
-  background: linear-gradient(135deg, #fff, #f8e7ee);
+  background: linear-gradient(135deg, #fff, #f6d5df);
   border-radius: 1.5rem;
   padding: 1.5rem;
   display: grid;
@@ -738,96 +514,5 @@ input:focus {
 
   .button-row {
     flex-direction: column;
-.transaction-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 14px;
-  border: 1px solid #edf0f6;
-  background: #fafbff;
-}
-
-.transaction-type {
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ab-primary);
-}
-
-.transaction-type.deposit {
-  color: var(--ab-success);
-}
-
-.transaction-detail {
-  font-weight: 600;
-  color: var(--ab-secondary);
-}
-
-.transaction-note {
-  color: var(--ab-muted);
-  font-style: italic;
-  margin-top: 0.25rem;
-}
-
-.transaction-meta {
-  text-align: right;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  min-width: 160px;
-}
-
-.transaction-amount {
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.transaction-amount.positive {
-  color: var(--ab-success);
-}
-
-.transaction-amount.negative {
-  color: var(--ab-danger);
-}
-
-.transaction-date {
-  color: var(--ab-muted);
-  font-size: 0.85rem;
-}
-
-.empty-state {
-  text-align: center;
-  color: var(--ab-muted);
-  padding: 1.5rem 0;
-}
-
-.site-footer {
-  padding: 2rem 0;
-  text-align: center;
-  color: var(--ab-muted);
-  font-size: 0.9rem;
-}
-
-@media (max-width: 640px) {
-  .site-header .container {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .nav-links {
-    justify-content: flex-start;
-  }
-
-  .auth-card,
-  .card,
-  .overview-card {
-    padding: 1.75rem;
-  }
-
-  .balance-display strong {
-    font-size: 2rem;
   }
 }
