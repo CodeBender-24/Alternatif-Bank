@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="auth-card">
+  <h1>OTP Doğrulaması</h1>
+  <p class="auth-subtitle">Lütfen gelen 6 haneli kodu girin. Demo kod: <strong>123456</strong></p>
+  <form method="post" class="form-grid otp-form">
+    <label for="otp">OTP</label>
+    <input type="text" id="otp" name="otp" maxlength="6" pattern="\d{6}" required>
+    <button class="primary-button" type="submit">Doğrula</button>
+  </form>
+</section>
+{% endblock %}
