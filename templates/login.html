@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="auth-card">
+  <h1>Alternatif Bank Demo</h1>
+  <p class="auth-subtitle">Telefon ya da e-posta ile giriş yapın.</p>
+  <form method="post" class="form-grid">
+    <label for="contact">E-posta veya Telefon</label>
+    <input type="text" id="contact" name="contact" placeholder="ornek@alternatifbank.com" required>
+    <button class="primary-button" type="submit">OTP ile giriş yap</button>
+  </form>
+  <p class="auth-switch">Hesabınız yok mu? <a href="{{ url_for('register') }}">Hemen kayıt olun</a></p>
+</section>
+{% endblock %}

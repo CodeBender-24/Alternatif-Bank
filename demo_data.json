@@ -1,0 +1,9 @@
+{
+  "next_user_id": 1,
+  "users": [],
+  "billers": [
+    {"id": "electricity", "name": "Elektrik"},
+    {"id": "water", "name": "Su"},
+    {"id": "gsm", "name": "GSM"}
+  ]
+}
