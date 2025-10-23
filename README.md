@@ -1,29 +1,33 @@
-# Alternatif Bank Mobil Demo
+# Alternatif Bank Mobile Demo
 
-Alternatif Bank'ın Türkiye'deki mobil uygulama deneyimini yerel ortamda taklit eden bu proje, tamamı mock verilerle çalışan tek sayfalı bir demo sağlar. Flask yalnızca arayüzü sunmak ve JSON tabanlı demo verisini yönetmek için kullanılır; gerçek bir altyapı ya da güvenlik katmanı içermez.
+React Native + Expo demo that recreates the Alternatif Bank mobile experience for local testing. The experience runs fully offline with mock JSON data, a 123456 OTP code, biometric and KYC stubs, account dashboards, transfers with FAST and Karekod assistance, payments, card controls, notifications, support chat, and settings.
 
-## Öne çıkan özellikler
-- **OTP ile kayıt/giriş:** Telefon veya e-posta ile kayıt olun, demo OTP `123456` kodunu girerek doğrulayın.
-- **Biyometrik kilit ve KYC:** Bir dokunuşla biyometrik kilidi açıp kapatın, tek ekranlık KYC stub'ı ile profili onaylayın.
-- **Ana sayfa deneyimi:** TRY hesaplarınızı, güncel bakiyeleri, FAST kanalı dahil son işlemleri görün ve ekstreyi CSV/PDF olarak dışa aktarın.
-- **Para transferi akışı:** Her kullanıcıya rastgele atanan IBAN'lar, IBAN doğrulama, FAST (anlık) işaretleme ve TR Karekod verisini yapıştırarak alıcı/tutar ön doldurma.
-- **Ödemeler:** Elektrik, su ve GSM gibi temel faturaları ödeyin, isteğe bağlı otomatik ödeme talimatı oluşturun.
-- **Kart yönetimi:** Bir debit ve bir kredi kartını görüntüleyin, anında dondurun/açın; temassız, e-ticaret ve yurtdışı harcama ayarlarını yönetin.
-- **Bildirimler ve destek:** Bildirim listesini okuyun, stub'lanmış canlı destek sohbetinden mesaj gönderin, SSS listesini inceleyin.
-- **Ayarlar:** Dil (TR/EN), tema (açık/koyu), bildirim tercihleri ve tek tıklamayla demo verilerini sıfırlama.
+## Requirements
+- Node 18+
+- npm or yarn
+- Expo CLI (`npm install -g expo-cli`) optional for easier commands
 
-## Kurulum
-
+## Getting Started
 ```bash
-python -m venv .venv
-source .venv/bin/activate  # Windows için .venv\\Scripts\\activate
-pip install -r requirements.txt
+npm install
+npm run start
 ```
 
-## Çalıştırma
+Open the Expo DevTools URL with an Android emulator, iOS simulator, or the Expo Go app on your phone. The demo ships with seeded data so you can sign in immediately using the mock OTP `123456`.
 
-```bash
-flask --app app run
-```
+## Feature Overview
+- Phone or email onboarding with OTP verification and mock biometric toggle
+- KYC confirmation stub that flips the profile to **Approved**
+- Home dashboard with TRY accounts, balances, latest transactions, and quick statement export to CSV or PDF files
+- IBAN transfer form with validation, FAST instant marker, and Karekod paste to prefill recipient and amount
+- Bill payments for electricity, water, and GSM, including optional autopay scheduling
+- Card management for debit and credit cards with freeze/unfreeze, contactless, e-commerce, and international toggles
+- Lightweight notifications feed, FAQ list, and stubbed support chat
+- Settings screen supporting English/Turkish copy, light/dark themes, notification preferences, biometric lock, and demo data reset
 
-Tarayıcıdan `http://127.0.0.1:5000` adresine giderek uygulamayı açabilirsiniz. İlk açılışta demo verileri `demo_data.json` dosyasında saklanır. Gerçek para transferi, güvenlik veya üretim özellikleri **yoktur**; proje yalnızca konsept gösterim içindir.
+## Statement Export
+Exported statements are generated on demand and stored under the Expo document directory. Use the share sheet or file explorer on your simulator/device to inspect the generated CSV/PDF artifacts.
+
+## Resetting Demo Data
+From the Settings tab choose **Reset Demo** to reload the original mock data bundle.
+
