@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Alternatif Bank Demo",
+    "slug": "alternatif-bank-demo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#930036"
+      }
+    },
+    "splash": {
+      "backgroundColor": "#930036"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
