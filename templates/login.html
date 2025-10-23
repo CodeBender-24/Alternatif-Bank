@@ -10,5 +10,17 @@
     <button class="primary-button" type="submit">OTP ile giriş yap</button>
   </form>
   <p class="auth-switch">Hesabınız yok mu? <a href="{{ url_for('register') }}">Hemen kayıt olun</a></p>
+  <h1 class="section-title">Alternatif Bank'a Hoş Geldiniz</h1>
+  <p class="section-subtitle">Dijital bankacılık deneyiminize kaldığınız yerden devam edin.</p>
+  <form method="post" class="form-grid">
+    <label for="email">E-posta</label>
+    <input type="email" id="email" name="email" placeholder="ornek@alternatifbank.com" required>
+
+    <label for="password">Şifre</label>
+    <input type="password" id="password" name="password" placeholder="Şifrenizi girin" required>
+
+    <button type="submit" class="primary-button">Giriş Yap</button>
+  </form>
+  <p class="form-footer">Hesabınız yok mu? <a href="{{ url_for('register') }}">Hemen kaydolun</a>.</p>
 </section>
 {% endblock %}
