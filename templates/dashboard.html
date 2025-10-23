@@ -3,237 +3,85 @@
 {% block content %}
 <section class="dashboard">
   <div class="overview-card">
-    <div>
-      <h1 class="section-title">{{ texts['welcome'] }}, {{ user.full_name.split(' ')[0] }} 👋</h1>
-      <p class="section-subtitle">Demo bankacılık deneyiminize hoş geldiniz.</p>
-    </div>
-    <div class="status-group">
-      <div class="status-pill {{ 'approved' if user.kyc_status == 'approved' else 'pending' }}">
-        {{ texts['kyc_approved'] if user.kyc_status == 'approved' else texts['kyc_pending'] }}
-      </div>
-      <form method="post" action="{{ url_for('toggle_biometric') }}">
-        <button type="submit" class="secondary-button">
-          {{ texts['disable_biometric'] if user.biometric_enabled else texts['enable_biometric'] }}
-        </button>
-      </form>
-      {% if user.kyc_status != 'approved' %}
-        <form method="post" action="{{ url_for('complete_kyc') }}">
-          <button type="submit" class="secondary-button">KYC onayla</button>
-        </form>
-      {% endif %}
+    <h1 class="section-title">Merhaba, {{ user['full_name'] }} 👋</h1>
+    <p class="section-subtitle">Alternatif Bank hesabınızın özetini aşağıda bulabilirsiniz.</p>
+    <div class="balance-display">
+      <span>Toplam Bakiyeniz</span>
+      <strong>{{ '₺{:,.2f}'.format(user['balance']).replace(',', 'X').replace('.', ',').replace('X', '.') }}</strong>
     </div>
   </div>
 
-  <div class="accounts-grid">
+  <div class="grid-two-columns">
     <div class="card">
-      <h2 class="card-title">{{ texts['accounts'] }}</h2>
-      <div class="accounts-list">
-        {% for account in user.accounts %}
-          <div class="account-item">
-            <div>
-              <span class="account-name">{{ account.name }}</span>
-              <span class="account-iban">{{ account.iban }}</span>
-            </div>
-            <strong class="account-balance">₺{{ '%.2f'|format(account.balance) }}</strong>
-          </div>
-        {% endfor %}
-      </div>
+      <h2 class="card-title">Bakiye Yükle</h2>
+      <form method="post" action="{{ url_for('deposit') }}" class="form-grid">
+        <label for="deposit-amount">Tutar (₺)</label>
+        <input type="number" step="0.01" min="0" id="deposit-amount" name="amount" placeholder="1000" required>
+
+        <label for="deposit-note">Açıklama</label>
+        <input type="text" id="deposit-note" name="note" placeholder="Opsiyonel açıklama">
+
+        <button type="submit" class="primary-button">Bakiye Ekle</button>
+      </form>
     </div>
+
     <div class="card">
-      <h2 class="card-title">{{ texts['export_statement'] }}</h2>
-      <p>Son işlemlerinizi CSV veya PDF formatında dışa aktarabilirsiniz.</p>
-      <div class="button-row">
-        <a class="primary-button" href="{{ url_for('export', fmt='csv') }}">CSV indir</a>
-        <a class="primary-button ghost" href="{{ url_for('export', fmt='pdf') }}">PDF indir</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2 class="card-title">{{ texts['money_movement'] }}</h2>
-    <form method="post" action="{{ url_for('transfer') }}" class="form-grid">
-      <label for="iban">IBAN</label>
-      <input type="text" id="iban" name="iban" placeholder="TR000000000000000000000000" required>
-
-      <label for="amount">Tutar (TRY)</label>
-      <input type="number" step="0.01" min="0" id="amount" name="amount" placeholder="250" required>
-
-      <label for="description">Açıklama</label>
-      <input type="text" id="description" name="description" placeholder="Kira ödemesi">
-
-      <label class="checkbox">
-        <input type="checkbox" name="fast" value="1"> {{ texts['fast_label'] }}
-      </label>
-
-      <label for="qr">{{ texts['qr_label'] }}</label>
-      <textarea id="qr" name="qr" placeholder="TRQR|PAYEE=Ali Yılmaz|AMT=150"></textarea>
-      <button class="secondary-button" type="button" id="qr-fill">IBAN ve tutarı doldur</button>
-
-      <button class="primary-button" type="submit">Transferi gönder</button>
-    </form>
-  </div>
-
-  <div class="card">
-    <h2 class="card-title">{{ texts['payments'] }}</h2>
-    <div class="payments-grid">
-      <div>
-        <h3>Mevcut talimatlar</h3>
-        <ul class="payment-list">
-          {% for payment in user.payments %}
-            <li>
-              <strong>{{ payment.biller }}</strong>
-              <span>{{ payment.customer_no }}</span>
-              <span class="tag {{ 'active' if payment.autopay else '' }}">{{ texts['autopay'] }}: {{ 'Açık' if payment.autopay else 'Kapalı' }}</span>
-            </li>
+      <h2 class="card-title">Para Transferi</h2>
+      <form method="post" action="{{ url_for('transfer') }}" class="form-grid">
+        <label for="transfer-email">Alıcı E-postası</label>
+        <input list="user-list" type="email" id="transfer-email" name="receiver_email" placeholder="alici@alternatifbank.com" required>
+        <datalist id="user-list">
+          {% for peer in users %}
+            <option value="{{ peer['email'] }}">{{ peer['full_name'] }}</option>
           {% endfor %}
-        </ul>
-      </div>
-      <form method="post" action="{{ url_for('pay_biller') }}" class="form-grid">
-        <label for="biller">Kurum</label>
-        <select id="biller" name="biller">
-          {% for biller in billers %}
-            <option value="{{ biller.name }}">{{ biller.name }}</option>
-          {% endfor %}
-        </select>
-        <label for="customer_no">Abone No</label>
-        <input type="text" id="customer_no" name="customer_no" placeholder="12345678">
-        <label for="bill_amount">Tutar</label>
-        <input type="number" step="0.01" min="0" id="bill_amount" name="bill_amount" placeholder="150" required>
-        <label class="checkbox">
-          <input type="checkbox" name="autopay" value="1"> {{ texts['autopay'] }}
-        </label>
-        <button class="primary-button" type="submit">Ödeme yap</button>
+        </datalist>
+
+        <label for="transfer-amount">Tutar (₺)</label>
+        <input type="number" step="0.01" min="0" id="transfer-amount" name="amount" placeholder="500" required>
+
+        <label for="transfer-note">Açıklama</label>
+        <input type="text" id="transfer-note" name="note" placeholder="Opsiyonel açıklama">
+
+        <button type="submit" class="primary-button">Transferi Gönder</button>
       </form>
     </div>
   </div>
 
   <div class="card">
-    <h2 class="card-title">{{ texts['cards'] }}</h2>
-    <div class="cards-grid">
-      {% for card in user.cards %}
-        <div class="card-tile {{ 'frozen' if card.frozen else '' }}">
-          <div class="card-headline">
+    <h2 class="card-title">Son İşlemler</h2>
+    {% if transactions %}
+      <ul class="transaction-list">
+        {% for trx in transactions %}
+          <li class="transaction-item">
             <div>
-              <span class="card-name">{{ card.name }}</span>
-              <span class="card-meta">•••• {{ card.last4 }} · {{ card.type|capitalize }}</span>
+              <span class="transaction-type {{ trx['type'] }}">{{ trx['type'] == 'deposit' and 'Bakiye Yükleme' or 'Transfer' }}</span>
+              {% if trx['type'] == 'transfer' %}
+                <p class="transaction-detail">
+                  {% if trx['sender_id'] == user['id'] %}
+                    <strong>{{ trx['receiver_name'] }}</strong> kişisine gönderildi
+                  {% else %}
+                    <strong>{{ trx['sender_name'] }}</strong> kişisinden alındı
+                  {% endif %}
+                </p>
+              {% else %}
+                <p class="transaction-detail">{{ trx['note'] }}</p>
+              {% endif %}
+              {% if trx['note'] and trx['type'] == 'transfer' %}
+                <p class="transaction-note">"{{ trx['note'] }}"</p>
+              {% endif %}
             </div>
-            <form method="post" action="{{ url_for('toggle_card', card_id=card.id) }}">
-              <button class="secondary-button" type="submit">{{ texts['unfreeze'] if card.frozen else texts['freeze'] }}</button>
-            </form>
-          </div>
-          <div class="card-body">
-            <span>Harcanan</span>
-            <strong>₺{{ '%.2f'|format(card.spend) }}</strong>
-            <span>Limit ₺{{ '%.0f'|format(card.limit) }}</span>
-          </div>
-          <form method="post" action="{{ url_for('card_settings', card_id=card.id) }}" class="toggle-grid">
-            <label><input type="checkbox" name="contactless" value="1" {% if card.settings.contactless %}checked{% endif %}> Temassız</label>
-            <label><input type="checkbox" name="ecommerce" value="1" {% if card.settings.ecommerce %}checked{% endif %}> E-ticaret</label>
-            <label><input type="checkbox" name="international" value="1" {% if card.settings.international %}checked{% endif %}> Yurtdışı</label>
-            <button class="ghost-button" type="submit">Kaydet</button>
-          </form>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-
-  <div class="card notifications-card">
-    <h2 class="card-title">{{ texts['notifications'] }}</h2>
-    <ul class="notification-list">
-      {% for note in user.notifications %}
-        <li>
-          <strong>{{ note.title }}</strong>
-          <span>{{ note.timestamp }}</span>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-
-  <div class="support-settings">
-    <div class="card support-card">
-      <h2 class="card-title">{{ texts['support'] }}</h2>
-      <div class="chat-window">
-        {% for message in user.support_messages %}
-          <div class="chat-bubble {{ message.sender }}">
-            <span class="chat-text">{{ message.message }}</span>
-            <span class="chat-time">{{ message.timestamp }}</span>
-          </div>
+            <div class="transaction-meta">
+              <span class="transaction-amount {{ 'negative' if trx['sender_id'] == user['id'] else 'positive' }}">
+                {% if trx['sender_id'] == user['id'] %}-{% else %}+{% endif %}₺{{ '{:,.2f}'.format(trx['amount']).replace(',', 'X').replace('.', ',').replace('X', '.') }}
+              </span>
+              <span class="transaction-date">{{ trx['created_at'] }}</span>
+            </div>
+          </li>
         {% endfor %}
-      </div>
-      <form method="post" action="{{ url_for('support') }}" class="form-grid">
-        <label for="message">Mesajınız</label>
-        <textarea id="message" name="message" rows="2" placeholder="Canlı destek ekibine yazın..."></textarea>
-        <button class="primary-button" type="submit">Gönder</button>
-      </form>
-      <div class="faq">
-        <h3>Sık Sorulan Sorular</h3>
-        <ul>
-          <li>FAST transfer limiti nedir?</li>
-          <li>Kartımı nasıl anında dondururum?</li>
-          <li>Otomatik ödeme talimatı nasıl çalışır?</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card settings-card">
-      <h2 class="card-title">{{ texts['settings'] }}</h2>
-      <form method="post" action="{{ url_for('settings') }}" class="form-grid">
-        <label for="language">Dil</label>
-        <select id="language" name="language">
-          <option value="tr" {% if user.language == 'tr' %}selected{% endif %}>Türkçe</option>
-          <option value="en" {% if user.language == 'en' %}selected{% endif %}>English</option>
-        </select>
-        <label for="theme">Tema</label>
-        <select id="theme" name="theme" data-sync-theme>
-          <option value="light" {% if user.theme == 'light' %}selected{% endif %}>Açık</option>
-          <option value="dark" {% if user.theme == 'dark' %}selected{% endif %}>Koyu</option>
-        </select>
-        <label class="checkbox">
-          <input type="checkbox" name="notifications_enabled" value="1" {% if user.notifications_enabled %}checked{% endif %}>
-          Bildirimleri açık tut
-        </label>
-        <button class="primary-button" type="submit">Ayarları kaydet</button>
-      </form>
-      <form method="post" action="{{ url_for('reset_demo') }}" class="reset-form">
-        <button class="ghost-button" type="submit">Demo verilerini sıfırla</button>
-      </form>
-    </div>
+      </ul>
+    {% else %}
+      <p class="empty-state">Henüz işlem geçmişiniz yok. Hemen bir transfer başlatın!</p>
+    {% endif %}
   </div>
 </section>
-
-<script>
-  const qrInput = document.getElementById('qr');
-  const ibanInput = document.getElementById('iban');
-  const amountInput = document.getElementById('amount');
-  const qrButton = document.getElementById('qr-fill');
-  if (qrButton) {
-    qrButton.addEventListener('click', async function () {
-      const payload = qrInput.value.trim();
-      if (!payload) {
-        alert('Önce bir TR Karekod verisi yapıştırın.');
-        return;
-      }
-      try {
-        const response = await fetch('{{ url_for('qr_prefill') }}', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ qr: payload })
-        });
-        const data = await response.json();
-        if (data.payee) {
-          document.getElementById('description').value = data.payee + ' ödemesi';
-        }
-        if (data.amount) {
-          amountInput.value = data.amount;
-        }
-        if (data.iban) {
-          ibanInput.value = data.iban;
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    });
-  }
-</script>
 {% endblock %}

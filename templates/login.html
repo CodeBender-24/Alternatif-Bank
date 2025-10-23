@@ -2,13 +2,17 @@
 
 {% block content %}
 <section class="auth-card">
-  <h1>Alternatif Bank Demo</h1>
-  <p class="auth-subtitle">Telefon ya da e-posta ile giriş yapın.</p>
+  <h1 class="section-title">Alternatif Bank'a Hoş Geldiniz</h1>
+  <p class="section-subtitle">Dijital bankacılık deneyiminize kaldığınız yerden devam edin.</p>
   <form method="post" class="form-grid">
-    <label for="contact">E-posta veya Telefon</label>
-    <input type="text" id="contact" name="contact" placeholder="ornek@alternatifbank.com" required>
-    <button class="primary-button" type="submit">OTP ile giriş yap</button>
+    <label for="email">E-posta</label>
+    <input type="email" id="email" name="email" placeholder="ornek@alternatifbank.com" required>
+
+    <label for="password">Şifre</label>
+    <input type="password" id="password" name="password" placeholder="Şifrenizi girin" required>
+
+    <button type="submit" class="primary-button">Giriş Yap</button>
   </form>
-  <p class="auth-switch">Hesabınız yok mu? <a href="{{ url_for('register') }}">Hemen kayıt olun</a></p>
+  <p class="form-footer">Hesabınız yok mu? <a href="{{ url_for('register') }}">Hemen kaydolun</a>.</p>
 </section>
 {% endblock %}

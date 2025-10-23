@@ -1,16 +1,13 @@
 <!doctype html>
-<html lang="tr" data-theme="{{ (user and user.theme) if user is defined else 'light' }}">
+<html lang="tr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Alternatif Bank Demo</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script>
-      document.documentElement.setAttribute('data-theme', localStorage.getItem('ab-theme') || document.documentElement.dataset.theme || 'light');
-    </script>
   </head>
-  <body class="{{ 'theme-dark' if (user is defined and user.theme == 'dark') else 'theme-light' }}">
+  <body>
     <header class="site-header">
       <div class="container">
         <div class="brand">
@@ -22,7 +19,7 @@
         </div>
         {% if session.get('user_id') %}
           <nav class="nav-links">
-            <a href="{{ url_for('dashboard') }}">Ana Sayfa</a>
+            <a href="{{ url_for('dashboard') }}">Panel</a>
             <a href="{{ url_for('logout') }}" class="logout">Çıkış</a>
           </nav>
         {% endif %}
@@ -49,13 +46,5 @@
         <p>Bu proje Alternatif Bank deneyimini yerel ortamda taklit eden bir demo uygulamasıdır.</p>
       </div>
     </footer>
-    <script>
-      document.querySelectorAll('[data-sync-theme]').forEach(function(element) {
-        element.addEventListener('change', function() {
-          localStorage.setItem('ab-theme', this.value);
-          document.documentElement.setAttribute('data-theme', this.value);
-        });
-      });
-    </script>
   </body>
 </html>

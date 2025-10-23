@@ -2,23 +2,23 @@
 
 {% block content %}
 <section class="auth-card">
-  <h1>Alternatif Bank Demo</h1>
-  <p class="auth-subtitle">Yeni hesap açın ve demo OTP ile doğrulayın.</p>
+  <h1 class="section-title">Alternatif Bank Üyeliği</h1>
+  <p class="section-subtitle">Dakikalar içinde kayıt olarak dijital bankacılık dünyasına adım atın.</p>
   <form method="post" class="form-grid">
     <label for="full_name">Ad Soyad</label>
-    <input type="text" id="full_name" name="full_name" placeholder="Ada Mert" required>
+    <input type="text" id="full_name" name="full_name" placeholder="Adınızı ve soyadınızı girin" required>
 
-    <label>İletişim Tercihi</label>
-    <div class="radio-group">
-      <label><input type="radio" name="contact_type" value="email" checked> E-posta</label>
-      <label><input type="radio" name="contact_type" value="phone"> Telefon</label>
-    </div>
+    <label for="email">E-posta</label>
+    <input type="email" id="email" name="email" placeholder="ornek@alternatifbank.com" required>
 
-    <label for="contact">E-posta veya Telefon</label>
-    <input type="text" id="contact" name="contact" placeholder="ada@alternatifbank.com" required>
+    <label for="password">Şifre</label>
+    <input type="password" id="password" name="password" placeholder="Şifrenizi belirleyin" required>
 
-    <button class="primary-button" type="submit">OTP gönder</button>
+    <label for="confirm_password">Şifre Tekrar</label>
+    <input type="password" id="confirm_password" name="confirm_password" placeholder="Şifrenizi tekrar girin" required>
+
+    <button type="submit" class="primary-button">Kayıt Ol</button>
   </form>
-  <p class="auth-switch">Zaten hesabınız var mı? <a href="{{ url_for('login') }}">Giriş yapın</a></p>
+  <p class="form-footer">Zaten üyelik var mı? <a href="{{ url_for('login') }}">Giriş yapın</a>.</p>
 </section>
 {% endblock %}
