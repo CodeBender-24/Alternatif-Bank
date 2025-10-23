@@ -2,6 +2,24 @@
 
 {% block content %}
 <section class="auth-card">
+  <h1>Alternatif Bank Demo</h1>
+  <p class="auth-subtitle">Yeni hesap açın ve demo OTP ile doğrulayın.</p>
+  <form method="post" class="form-grid">
+    <label for="full_name">Ad Soyad</label>
+    <input type="text" id="full_name" name="full_name" placeholder="Ada Mert" required>
+
+    <label>İletişim Tercihi</label>
+    <div class="radio-group">
+      <label><input type="radio" name="contact_type" value="email" checked> E-posta</label>
+      <label><input type="radio" name="contact_type" value="phone"> Telefon</label>
+    </div>
+
+    <label for="contact">E-posta veya Telefon</label>
+    <input type="text" id="contact" name="contact" placeholder="ada@alternatifbank.com" required>
+
+    <button class="primary-button" type="submit">OTP gönder</button>
+  </form>
+  <p class="auth-switch">Zaten hesabınız var mı? <a href="{{ url_for('login') }}">Giriş yapın</a></p>
   <h1 class="section-title">Alternatif Bank Üyeliği</h1>
   <p class="section-subtitle">Dakikalar içinde kayıt olarak dijital bankacılık dünyasına adım atın.</p>
   <form method="post" class="form-grid">
