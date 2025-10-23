@@ -1,0 +1,121 @@
+{
+  "accounts": [
+    {
+      "id": "acc-main",
+      "name": "Vadesiz Hesap",
+      "type": "checking",
+      "balance": 12450.75,
+      "currency": "TRY"
+    },
+    {
+      "id": "acc-savings",
+      "name": "Vadeli Hesap",
+      "type": "savings",
+      "balance": 5020.0,
+      "currency": "TRY"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "txn-1",
+      "accountId": "acc-main",
+      "type": "incoming",
+      "amount": 3200.0,
+      "description": "Maaş Ödemesi",
+      "counterparty": "Alternatif Teknoloji",
+      "timestamp": "2024-06-28T08:30:00Z"
+    },
+    {
+      "id": "txn-2",
+      "accountId": "acc-main",
+      "type": "outgoing",
+      "amount": 450.5,
+      "description": "Elektrik Faturası",
+      "counterparty": "İstanbul Enerji",
+      "timestamp": "2024-06-26T10:10:00Z"
+    },
+    {
+      "id": "txn-3",
+      "accountId": "acc-savings",
+      "type": "incoming",
+      "amount": 150.25,
+      "description": "Faiz Geliri",
+      "counterparty": "Alternatif Bank",
+      "timestamp": "2024-06-20T18:45:00Z"
+    }
+  ],
+  "cards": [
+    {
+      "id": "card-debit",
+      "type": "debit",
+      "label": "Alternatif Debit",
+      "masked": "5312 74•• ••22 1085",
+      "limit": 10000,
+      "balance": 3120.4,
+      "settings": {
+        "contactless": true,
+        "ecommerce": true,
+        "international": false
+      }
+    },
+    {
+      "id": "card-credit",
+      "type": "credit",
+      "label": "Alternatif Credit",
+      "masked": "4786 20•• ••98 4421",
+      "limit": 20000,
+      "balance": 6580.9,
+      "settings": {
+        "contactless": true,
+        "ecommerce": true,
+        "international": true
+      }
+    }
+  ],
+  "billers": [
+    {
+      "id": "electricity",
+      "name": "Elektrik",
+      "accountNumberLabel": "Abone No",
+      "autopay": false
+    },
+    {
+      "id": "water",
+      "name": "Su",
+      "accountNumberLabel": "Tesisat No",
+      "autopay": false
+    },
+    {
+      "id": "gsm",
+      "name": "GSM",
+      "accountNumberLabel": "Telefon No",
+      "autopay": false
+    }
+  ],
+  "notifications": [
+    {
+      "id": "ntf-1",
+      "title": "FAST transferiniz ulaştı",
+      "body": "250₺ tutarındaki FAST işleminiz başarıyla tamamlandı.",
+      "timestamp": "2024-06-27T09:05:00Z"
+    },
+    {
+      "id": "ntf-2",
+      "title": "Kart harcama özeti",
+      "body": "Haziran dönemindeki toplam harcamanız 6.580,90₺",
+      "timestamp": "2024-06-25T11:20:00Z"
+    }
+  ],
+  "faqs": [
+    {
+      "id": "faq-1",
+      "question": "FAST transferi nedir?",
+      "answer": "FAST, 7/24 anlık para transferi yapmanızı sağlayan sistemdir."
+    },
+    {
+      "id": "faq-2",
+      "question": "Biometrik kilidi nasıl açarım?",
+      "answer": "Ayarlar > Güvenlik bölümünden yüz tanıma veya parmak izi kilidini etkinleştirebilirsiniz."
+    }
+  ]
+}

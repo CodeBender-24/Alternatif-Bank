@@ -1,29 +1,53 @@
-# Alternatif Bank Mobil Demo
+# Alternatif Bank React Native Demo
 
-Alternatif Bank'ın Türkiye'deki mobil uygulama deneyimini yerel ortamda taklit eden bu proje, tamamı mock verilerle çalışan tek sayfalı bir demo sağlar. Flask yalnızca arayüzü sunmak ve JSON tabanlı demo verisini yönetmek için kullanılır; gerçek bir altyapı ya da güvenlik katmanı içermez.
+Bu depo, Alternatif Bank mobil deneyimini taklit eden tamamen yerel ve backend'siz bir React Native (Expo) demosu içerir. Kullanıcılar telefon veya e-posta ile kayıt olabilir, 123456 mock OTP'siyle doğrulama yapabilir, FAST/IBAN transferleri, temel fatura ödemeleri, kart yönetimi ve destek modüllerini tek uygulama içinde deneyebilir.
 
-## Öne çıkan özellikler
-- **OTP ile kayıt/giriş:** Telefon veya e-posta ile kayıt olun, demo OTP `123456` kodunu girerek doğrulayın.
-- **Biyometrik kilit ve KYC:** Bir dokunuşla biyometrik kilidi açıp kapatın, tek ekranlık KYC stub'ı ile profili onaylayın.
-- **Ana sayfa deneyimi:** TRY hesaplarınızı, güncel bakiyeleri, FAST kanalı dahil son işlemleri görün ve ekstreyi CSV/PDF olarak dışa aktarın.
-- **Para transferi akışı:** Her kullanıcıya rastgele atanan IBAN'lar, IBAN doğrulama, FAST (anlık) işaretleme ve TR Karekod verisini yapıştırarak alıcı/tutar ön doldurma.
-- **Ödemeler:** Elektrik, su ve GSM gibi temel faturaları ödeyin, isteğe bağlı otomatik ödeme talimatı oluşturun.
-- **Kart yönetimi:** Bir debit ve bir kredi kartını görüntüleyin, anında dondurun/açın; temassız, e-ticaret ve yurtdışı harcama ayarlarını yönetin.
-- **Bildirimler ve destek:** Bildirim listesini okuyun, stub'lanmış canlı destek sohbetinden mesaj gönderin, SSS listesini inceleyin.
-- **Ayarlar:** Dil (TR/EN), tema (açık/koyu), bildirim tercihleri ve tek tıklamayla demo verilerini sıfırlama.
+## Özellikler
+- **OTP Tabanlı Onboarding** – Telefon veya e-posta ile kayıt, 123456 kodu ile doğrulama, isteğe bağlı biometrik kilit.
+- **KYC Stub** – Tek tuşla profili “Onaylı” olarak işaretleyen hızlı bir kimlik doğrulama ekranı.
+- **Ana Sayfa** – TL hesapları, rastgele atanmış IBAN'lar, son işlemler, bildirimler ve PDF/CSV ekstre aktarımı.
+- **Para Transferleri** – IBAN doğrulama, FAST işareti, TR Karekod (QR) JSON/string çözücü ile alıcı ve tutar ön doldurma.
+- **Ödemeler** – Elektrik, su ve GSM faturaları için ödeme ve otomatik ödeme talimatı.
+- **Kart Yönetimi** – Bir debet ve bir kredi kartı için anlık dondurma, temassız limit, e-ticaret ve yurt dışı ayarları.
+- **Bildirim & Destek** – Bildirim listesi, sık sorulan sorular ve otomatik yanıt veren sohbet stub'ı.
+- **Ayarlar** – Dil (TR/EN), tema tercihi saklama, bildirim ayarı, biometrik kilit ve demo sıfırlama.
 
 ## Kurulum
+1. [Node.js 18+](https://nodejs.org/) ve [Yarn](https://yarnpkg.com/) ya da npm yüklü olmalıdır.
+2. Depoyu klonlayın ve bağımlılıkları kurun:
+   ```bash
+   npm install
+   # veya
+   yarn
+   ```
+3. Expo geliştirme sunucusunu başlatın:
+   ```bash
+   npx expo start
+   ```
+4. Çıkan QR kodunu Expo Go uygulamasıyla okutabilir veya emülatörde çalıştırabilirsiniz.
 
-```bash
-python -m venv .venv
-source .venv/bin/activate  # Windows için .venv\\Scripts\\activate
-pip install -r requirements.txt
+> Not: PDF/CSV dışa aktarımları ve paylaşım akışları gerçek cihazlarda test edildiğinde tam çalışır. Web önizlemesinde paylaşım özellikleri sınırlı olabilir.
+
+## Yapı
+```
+.
+├── App.js                 # Navigasyon ve tab yapısı
+├── assets/
+│   └── data/defaultState.json
+├── src/
+│   ├── components/        # Ortak bileşenler (GradientCard vb.)
+│   ├── context/           # Uygulama durumu ve iş mantığı
+│   ├── screens/           # Onboarding, Home, Transfer, Payments, Cards, Support, Settings
+│   ├── theme/             # Renk paleti (#930036 ana ton)
+│   └── utils/             # Yardımcı format fonksiyonları
+└── package.json
 ```
 
-## Çalıştırma
+## Geliştirme İpuçları
+- Demo verileri `AsyncStorage` üzerinde saklanır; `Ayarlar > Demo Verilerini Sıfırla` üzerinden temizleyebilirsiniz.
+- Mock OTP her zaman `123456` olarak kabul edilir.
+- QR alanı, `{"iban":"TRXX...","amount":250,"name":"Alıcı"}` veya `TRXX...|250|Alıcı` formatlarını destekler.
+- Biometrik kilit, Expo Local Authentication üzerinden cihaz desteği mevcutsa etkinleşir.
 
-```bash
-flask --app app run
-```
-
-Tarayıcıdan `http://127.0.0.1:5000` adresine giderek uygulamayı açabilirsiniz. İlk açılışta demo verileri `demo_data.json` dosyasında saklanır. Gerçek para transferi, güvenlik veya üretim özellikleri **yoktur**; proje yalnızca konsept gösterim içindir.
+## Lisans
+Bu proje eğitim ve demo amaçlıdır; gerçek bankacılık işlemleri için kullanılmamalıdır.
